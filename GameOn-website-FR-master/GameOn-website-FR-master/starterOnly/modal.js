@@ -31,15 +31,161 @@ croix.addEventListener("mousedown", () => {
 
 // Formulaire
 
-const firstName = document.querySelector("#first");
+const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="radio"], input[type="checkbox"]');
+let firstName, lastName, email, birthDate, quantity, city, checkbox;
+const radioButton = document.querySelectorAll(input[type="radio"]);
+const checked = document.querySelector('.checkbox-container:checked')
+const validSpan = document.querySelector(".valid-form")
+
+const errorDisplay = (tag, message, valid) => {
+  const container = document.querySelector("." + tag +"-container");
+  const span = document.querySelector("." + tag +"-container > span");
+
+  if (!valid) {
+    container.classList.add('error');
+    span.textContent = message;
+  } else {
+    container.classList.remove('error');
+    span.textContent = message;
+  }
+};
+
+const firstNameChecker = (value) => {
+  if (value.length > 0 && value.length < 2) {
+    errorDisplay("firstName", "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
+    firstName = null;
+  } else if (!value.match(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)) {
+    errorDisplay("firstName", "Le prénom ne doit pas contenir de caractères spéciaux");
+    firstName = null;
+  } else {
+    errorDisplay("firstName", "", true);
+    firstName = value;
+  }
+};
+
+const lastNameChecker = (value) => {
+  if (value.length > 0 && value.length < 2) {
+    errorDisplay("lastName", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+    lastName = null;
+  } else if (!value.match(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)) {
+    errorDisplay("lastName", "Le nom ne doit pas contenir de caractères spéciaux");
+    lastName = null;
+  } else {
+    errorDisplay("lastName", "", true);
+    lastName = value;
+  }
+};
+
+const emailChecker = (value) => {
+  if (!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+    errorDisplay("email", "Le mail n'est pas valide");
+    email = null;
+  } else {
+    errorDisplay("email", "", true);
+    email = value;
+  }
+};
+
+const birthDateChecker = (value) => {
+  if (value == "") {
+    errorDisplay("birthDate", "Veuillez mettre une date de naissance valide.");
+    birthDate = null;
+  } else {
+    errorDisplay("birthDate", "", true);
+    birthDate = value;
+  }
+};
+
+const quantityChecker = (value) => {
+  if (!value.match("^\d$")) {
+    errorDisplay("quantity", "Une valeur numérique doit être saisie");
+    quantity = null;
+  } else {
+    errorDisplay("quantity", "", true);
+    quantity = value;
+  }
+};
+
+const cityChecker = () => {
+  if (atLeastOneRadio() = false) {
+    errorDisplay("city", "Veuillez sélectioner une ville.");
+    city = null;
+  } else {
+    errorDisplay("city", "", true);
+    city = value;
+  }
+};
+
+const checkboxChecker = (checked) => {
+  if (checked != true) {
+    errorDisplay("checkbox", "Veuillez lire et accepter les conditions d'utilisation");
+    checkbox = null;
+  } else {
+    errorDisplay("checkbox", "", true);
+    checkbox = checked;
+  }
+};
+
+/* const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 const email = document.querySelector("#email");
+const birthdate = document.querySelector("#birthdate");
 const quantity = document.querySelector("#quantity");
 const city = document.querySelectorAll('input[type="radio"]');
 const checkBox = document.querySelector('#checkbox1');
-const form = document.querySelector('#form');
+const form = document.querySelector('#form'); */
 
-const twoChar = (value) => {
+
+
+inputs.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    switch (e.target.id) {
+      case "first" :
+        firstNameChecker(e.target.value)
+        break;
+       case "last" :
+         lastNameChecker(e.target.value)
+         break;
+        case "email" :
+          emailChecker(e.target.value)
+          break;
+         case "birthdate" :
+           birthDateChecker(e.target.value)
+           break;
+          case "quantity" :
+            quantityChecker(e.target.value)
+            break;
+           case "location1" : 
+            cityChecker(e.target.value)
+            break;
+            case "location2" : 
+            cityChecker(e.target.value)
+            break; 
+            case "location3" : 
+            cityChecker(e.target.value)
+            break; 
+            case "location4" : 
+            cityChecker(e.target.value)
+            break; 
+            case "location5" : 
+            cityChecker(e.target.value)
+            break; 
+            case "location5" : 
+            cityChecker(e.target.value)
+            break; 
+           case "checkbox1" :
+            checkboxChecker(e.target.checked)
+            break;
+            default :
+                null;
+    }
+  })
+})
+
+
+
+
+/* const twoChar = (value) => {
   return /^[a-zA-Z]{2,}$/gm.test(value);
 };
 
@@ -50,21 +196,38 @@ firstName.addEventListener("input", (e) => {
     firstName.focus();
     return false;
      }
-     if(firstName.value == " "){
+     else if(firstName.value == " "){
        alert("Name Field cannot be left empty");
        firstName.focus();
        return false;
      }
      return true;
-});
+}); */
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (checkBox.checked) {
-    return true
+  if (firstName && lastName && email && birthDate && quantity && city && checkbox) {
+    const date = {
+      firstName,
+      lastName,
+      email,
+      birthDate,
+      quantity,
+      city,
+      checkbox,
+    };
+    console.log(date);
+    firstName = null;
+    lastName = null;
+    email = null;
+    birthDate = null;
+    quantity = null;
+    city = null;
+    checkbox = null;
+    validSpan.textContent = "Merci ! Votre réservation a été reçue.";
   } else {
-    alert("Veuillez lire et accepter les conditions d'utilisation");
-    return false
+    validSpan.textContent = "Le formulaire n'est pas correctement rempli";
+    validSpan.style.color = "red";
   }
 });

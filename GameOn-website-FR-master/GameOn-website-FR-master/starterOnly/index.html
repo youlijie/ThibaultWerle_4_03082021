@@ -61,10 +61,9 @@
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate();"
             >
               <div
-                class="formData">
+                class="formData firstName-container">
                 <label for="first">Prénom</label><br>
                 <input
                   class="text-control"
@@ -73,9 +72,10 @@
                   name="first"
                   minlength="2"
                 /><br>
+                <span class="error-firstname"></span>
               </div>
               <div
-                class="formData">
+                class="formData lastName-container">
                 <label for="last">Nom</label><br>
                 <input
                   class="text-control"
@@ -83,9 +83,10 @@
                   id="last"
                   name="last"
                 /><br>
+                <span class="error-lastname"></span>
               </div>
               <div
-                class="formData">
+                class="formData email-container">
                 <label for="email">E-mail</label><br>
                 <input
                   class="text-control"
@@ -93,9 +94,10 @@
                   id="email"
                   name="email"
                 /><br>
+                <span class="error-email"></span>
               </div>
               <div
-                class="formData">
+                class="formData birthDate-container">
                 <label for="birthdate">Date de naissance</label><br>
                 <input
                   class="text-control"
@@ -103,15 +105,17 @@
                   id="birthdate"
                   name="birthdate"
                 /><br>
+                <span class="error-birthday"></span>
               </div>
               <div
-                class="formData">
+                class="formData quantity-container">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <span class="error-tournament"></span>
               </div>
               <p class="text-label">Quelles villes ?</p>
               <div
-                class="formData">
+                class="formData city-container">
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -178,10 +182,11 @@
                   <span class="checkbox-icon"></span>
                   Portland</label
                 >
+                <span class="error-location"></span>
               </div>
 
               <div
-                class="formData">
+                class="formData checkbox-container">
                 <input
                   class="checkbox-input"
                   type="checkbox"
@@ -199,6 +204,7 @@
                   Je Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
+                <span class="error-cd"></span>
               </div>
               <input
                 class="btn-submit"
@@ -206,6 +212,7 @@
                 class="button"
                 value="C'est parti"
               />
+              <span class="valid-form"></span>
             </form>
           </div>
         </div>
