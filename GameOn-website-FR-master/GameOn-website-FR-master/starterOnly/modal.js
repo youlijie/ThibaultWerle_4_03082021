@@ -33,7 +33,7 @@ croix.addEventListener("mousedown", () => {
 
 const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="radio"], input[type="checkbox"]');
 let firstName, lastName, email, birthDate, quantity, city, checkbox;
-const radioButton = document.querySelectorAll(input[type="radio"]);
+const radioButton = document.querySelectorAll('input[type="radio"]');
 const checked = document.querySelector('.checkbox-container:checked')
 const validSpan = document.querySelector(".valid-form")
 
@@ -106,15 +106,37 @@ const quantityChecker = (value) => {
   }
 };
 
+/* radioButton.forEach((rad) => {
+  if (value = true) {
+    errorDisplay("city", "", true);
+    city = value;
+  } else {
+    errorDisplay("city", "Veuillez sélectioner une ville.");
+    city = null;
+  }
+}); */
+
 const cityChecker = () => {
-  if (atLeastOneRadio() = false) {
+  radioButton.forEach((rad) => {
+    if (value = true) {
+      errorDisplay("city", "", true);
+      city = value;
+    } else {
+      errorDisplay("city", "Veuillez sélectioner une ville.");
+      city = null;
+    }
+  });
+};
+
+/* const cityChecker = () => {
+  if (value = false) {
     errorDisplay("city", "Veuillez sélectioner une ville.");
     city = null;
   } else {
     errorDisplay("city", "", true);
     city = value;
   }
-};
+}; */
 
 const checkboxChecker = (checked) => {
   if (checked != true) {
@@ -155,24 +177,9 @@ inputs.forEach((input) => {
           case "quantity" :
             quantityChecker(e.target.value)
             break;
-           case "location1" : 
+           case "location1" || "location2" || "location3" || "location4" || "location5" || "location6" : 
             cityChecker(e.target.value)
             break;
-            case "location2" : 
-            cityChecker(e.target.value)
-            break; 
-            case "location3" : 
-            cityChecker(e.target.value)
-            break; 
-            case "location4" : 
-            cityChecker(e.target.value)
-            break; 
-            case "location5" : 
-            cityChecker(e.target.value)
-            break; 
-            case "location5" : 
-            cityChecker(e.target.value)
-            break; 
            case "checkbox1" :
             checkboxChecker(e.target.checked)
             break;
