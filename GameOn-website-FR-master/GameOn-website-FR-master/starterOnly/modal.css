@@ -83,7 +83,6 @@ img {
 .valid-form {
   visibility: visible;
   opacity: 1;
-  color: green;
   font-size: medium;
 }
 

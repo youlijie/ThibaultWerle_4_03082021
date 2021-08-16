@@ -31,10 +31,10 @@ croix.addEventListener("mousedown", () => {
 
 // Formulaire
 
-const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="radio"], input[type="checkbox"]');
-let firstName, lastName, email, birthDate, quantity, city, checkbox;
-const radioButton = document.querySelectorAll('input[type="radio"]');
-const checked = document.querySelector('.checkbox-container:checked')
+const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="radio"], input[type="checkbox"], input[type="number"]');
+let firstName, lastName, email, birthDate, quantity;
+let city = document.querySelector('input[type="radio"]:checked')
+let checkbox = document.querySelector('input[type="checkbox"]:checked')
 const validSpan = document.querySelector(".valid-form")
 
 const errorDisplay = (tag, message, valid) => {
@@ -97,7 +97,7 @@ const birthDateChecker = (value) => {
 };
 
 const quantityChecker = (value) => {
-  if (!value.match("^\d$")) {
+  if (!value.match(/^\d+$/)) {
     errorDisplay("quantity", "Une valeur numérique doit être saisie");
     quantity = null;
   } else {
@@ -116,17 +116,16 @@ const quantityChecker = (value) => {
   }
 }); */
 
-const cityChecker = () => {
-  radioButton.forEach((rad) => {
-    if (value = true) {
-      errorDisplay("city", "", true);
-      city = value;
-    } else {
-      errorDisplay("city", "Veuillez sélectioner une ville.");
-      city = null;
-    }
-  });
+const cityChecker = (checked) => {
+      if (checked != true) {
+        errorDisplay("city", "Veuillez sélectioner une ville.");
+        city = null;
+      } else {
+        errorDisplay("city", "", true);
+        city = checked;
+      }
 };
+
 
 /* const cityChecker = () => {
   if (value = false) {
@@ -177,14 +176,29 @@ inputs.forEach((input) => {
           case "quantity" :
             quantityChecker(e.target.value)
             break;
-           case "location1" || "location2" || "location3" || "location4" || "location5" || "location6" : 
-            cityChecker(e.target.value)
+           case "location1" : 
+            cityChecker(e.target.checked)
+            break;
+            case "location2" : 
+            cityChecker(e.target.checked)
+            break;
+            case "location3" : 
+            cityChecker(e.target.checked)
+            break;
+            case "location4" : 
+            cityChecker(e.target.checked)
+            break;
+            case "location5" : 
+            cityChecker(e.target.checked)
+            break;
+            case "location6" : 
+            cityChecker(e.target.checked)
             break;
            case "checkbox1" :
             checkboxChecker(e.target.checked)
             break;
-            default :
-                null;
+           default:
+              nul;
     }
   })
 })
@@ -231,8 +245,8 @@ form.addEventListener("submit", (e) => {
     birthDate = null;
     quantity = null;
     city = null;
-    checkbox = null;
     validSpan.textContent = "Merci ! Votre réservation a été reçue.";
+    validSpan.style.color = "green";
   } else {
     validSpan.textContent = "Le formulaire n'est pas correctement rempli";
     validSpan.style.color = "red";
