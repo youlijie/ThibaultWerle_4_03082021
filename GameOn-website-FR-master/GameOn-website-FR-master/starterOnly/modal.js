@@ -31,12 +31,16 @@ croix.addEventListener("mousedown", () => {
 
 // Formulaire
 
+
+// Déclaration des variables
 const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="radio"], input[type="checkbox"], input[type="number"]');
 let firstName, lastName, email, birthDate, quantity;
 let city = document.querySelector('input[type="radio"]:checked')
 let checkbox = document.querySelector('input[type="checkbox"]:checked')
 const validSpan = document.querySelector(".valid-form")
 
+
+// Fonction pour afficher une erreur si incorrecte
 const errorDisplay = (tag, message, valid) => {
   const container = document.querySelector("." + tag +"-container");
   const span = document.querySelector("." + tag +"-container > span");
@@ -50,6 +54,8 @@ const errorDisplay = (tag, message, valid) => {
   }
 };
 
+
+//Fonction pour vérifier que le prénom à plus de 2 caractères et non vide
 const firstNameChecker = (value) => {
   if (value.length > 0 && value.length < 2) {
     errorDisplay("firstName", "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
@@ -63,6 +69,7 @@ const firstNameChecker = (value) => {
   }
 };
 
+//Fonction pour vérifier que le nom à plus de 2 caractères et non vide
 const lastNameChecker = (value) => {
   if (value.length > 0 && value.length < 2) {
     errorDisplay("lastName", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
@@ -76,6 +83,7 @@ const lastNameChecker = (value) => {
   }
 };
 
+//Fonction pour vérifier l'email avec regex
 const emailChecker = (value) => {
   if (!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
     errorDisplay("email", "Le mail n'est pas valide");
@@ -86,6 +94,7 @@ const emailChecker = (value) => {
   }
 };
 
+//Fonction pour vérifier la date de naissance
 const birthDateChecker = (value) => {
   if (value == "") {
     errorDisplay("birthDate", "Veuillez mettre une date de naissance valide.");
@@ -96,6 +105,7 @@ const birthDateChecker = (value) => {
   }
 };
 
+//Fonction pour vérifier la quantité
 const quantityChecker = (value) => {
   if (!value.match(/^\d+$/)) {
     errorDisplay("quantity", "Une valeur numérique doit être saisie");
@@ -106,6 +116,7 @@ const quantityChecker = (value) => {
   }
 };
 
+// code brouillon
 /* radioButton.forEach((rad) => {
   if (value = true) {
     errorDisplay("city", "", true);
@@ -116,6 +127,7 @@ const quantityChecker = (value) => {
   }
 }); */
 
+//Fonction pour vérifier si une ville est coché
 const cityChecker = (checked) => {
       if (checked != true) {
         errorDisplay("city", "Veuillez sélectioner une ville.");
@@ -126,7 +138,7 @@ const cityChecker = (checked) => {
       }
 };
 
-
+// code brouillon
 /* const cityChecker = () => {
   if (value = false) {
     errorDisplay("city", "Veuillez sélectioner une ville.");
@@ -137,6 +149,7 @@ const cityChecker = (checked) => {
   }
 }; */
 
+//Fonction pour vérifier si la case des conditions est coché
 const checkboxChecker = (checked) => {
   if (checked != true) {
     errorDisplay("checkbox", "Veuillez lire et accepter les conditions d'utilisation");
@@ -147,6 +160,7 @@ const checkboxChecker = (checked) => {
   }
 };
 
+// code brouillon
 /* const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 const email = document.querySelector("#email");
@@ -157,7 +171,7 @@ const checkBox = document.querySelector('#checkbox1');
 const form = document.querySelector('#form'); */
 
 
-
+// Sélectionne les inputs avec leurs fonctions associées
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
     switch (e.target.id) {
@@ -225,6 +239,7 @@ firstName.addEventListener("input", (e) => {
      return true;
 }); */
 
+//Vérifie si le formulaire est bien rempli à chaque inputs et vide le formulaire après le premier envoi réussi
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -247,6 +262,27 @@ form.addEventListener("submit", (e) => {
     city = null;
     validSpan.textContent = "Merci ! Votre réservation a été reçue.";
     validSpan.style.color = "green";
+  } else if (firstName == null) {
+    validSpan.textContent = "Prénom non valide";
+    validSpan.style.color = "red";
+  } else if (lastName == null) {
+    validSpan.textContent = "Nom non valide";
+    validSpan.style.color = "red";
+  } else if (email == null) {
+    validSpan.textContent = "email non valide";
+    validSpan.style.color = "red";
+  } else if (birthDate == null) {
+    validSpan.textContent = "Date de naissance non valide";
+    validSpan.style.color = "red";
+  } else if (quantity == null) {
+    validSpan.textContent = "Nombre de participation non valide";
+    validSpan.style.color = "red";
+  } else if (cityChecker(e.target.checked) != true) {
+    validSpan.textContent = "Choisissez une ville";
+    validSpan.style.color = "red";
+  } else if (checkboxChecker(e.target.checked) != true) {
+    validSpan.textContent = "Veuillez cocher les conditions d'utilisation";
+    validSpan.style.color = "red";
   } else {
     validSpan.textContent = "Le formulaire n'est pas correctement rempli";
     validSpan.style.color = "red";
