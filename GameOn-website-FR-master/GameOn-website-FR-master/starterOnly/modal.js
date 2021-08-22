@@ -38,6 +38,20 @@ let firstName, lastName, email, birthDate, quantity;
 let city = document.querySelector('input[type="radio"]:checked')
 let checkbox = document.querySelector('input[type="checkbox"]:checked')
 const validSpan = document.querySelector(".valid-form")
+const validClean = document.querySelector(".modal-body")
+
+
+//Obtenir l'age de la
+function getAge(dateString) {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  return age;
+}
 
 
 // Fonction pour afficher une erreur si incorrecte
@@ -96,8 +110,8 @@ const emailChecker = (value) => {
 
 //Fonction pour vérifier la date de naissance
 const birthDateChecker = (value) => {
-  if (value == "") {
-    errorDisplay("birthDate", "Veuillez mettre une date de naissance valide.");
+  if (getAge(value) < 12 && getAge(value) < 100 ) {
+    errorDisplay("birthDate", "Vous devez avoir plus de 12 ans.");
     birthDate = null;
   } else {
     errorDisplay("birthDate", "", true);
@@ -260,8 +274,10 @@ form.addEventListener("submit", (e) => {
     birthDate = null;
     quantity = null;
     city = null;
-    validSpan.textContent = "Merci ! Votre réservation a été reçue.";
-    validSpan.style.color = "green";
+    validClean.innerHTML = `<h3>Merci ! Votre réservation a été reçue.</h3>
+    <form action="">
+    <input class="btn-submit" type="button" class="close" value="Close" /></form>`;
+    validClean.style.color = "green";
   } else if (firstName == null) {
     validSpan.textContent = "Prénom non valide";
     validSpan.style.color = "red";
