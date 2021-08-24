@@ -275,8 +275,7 @@ form.addEventListener("submit", (e) => {
     quantity = null;
     city = null;
     validClean.innerHTML = `<h3>Merci ! Votre réservation a été reçue.</h3>
-    <form action="">
-    <input class="btn-submit" type="button" class="close" value="Close" /></form>`;
+    <button class="btn-submit" type="button" class="close">Close</button>`;
     validClean.style.color = "green";
   } else if (firstName == null) {
     validSpan.textContent = "Prénom non valide";
